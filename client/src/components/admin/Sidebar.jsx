@@ -118,7 +118,6 @@ const Sidebar = () => {
                 <NavLink
                   key={link.title}
                   to={link.path}
-                  onClick={() => setOpen(false)}
                   className={({ isActive }) =>
                     `p-3 flex items-center justify-center md:justify-start gap-2 rounded-md text-lg font-medium my-2 hover:bg-blue-500 hover:text-white dark:hover:bg-white dark:hover:text-black ${
                       isActive &&
