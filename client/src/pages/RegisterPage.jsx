@@ -71,7 +71,7 @@ const RegisterPage = () => {
           />
           <div className="border border-borderColor rounded-md p-3 flex items-center justify-between gap-1 focus-within:ring-focusColor focus-within:ring-1">
             <input
-              className="w-full ring-0"
+              className="ring-0"
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="password"

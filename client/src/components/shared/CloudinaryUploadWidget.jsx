@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
 
-const CloudinaryUploadWidget = ({ uwConfig, setState }) => {
+const CloudinaryUploadWidget = ({ uwConfig, setState, isAdmin }) => {
   const uploadWidgetRef = useRef(null);
   const uploadButtonRef = useRef(null);
 
@@ -42,7 +42,9 @@ const CloudinaryUploadWidget = ({ uwConfig, setState }) => {
   return (
     <div
       ref={uploadButtonRef}
-      className="flex items-center gap-2 cursor-pointer text-textSoft text-sm"
+      className={`flex items-center gap-2 cursor-pointer text-sm ${
+        isAdmin ? "text-gray-500" : "text-textSoft"
+      }`}
     >
       <IoCloudUploadOutline size={20} />
       <span>Upload a photo</span>

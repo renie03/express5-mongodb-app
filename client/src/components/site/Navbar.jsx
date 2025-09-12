@@ -34,7 +34,7 @@ const Navbar = () => {
           ))}
           {currentUser?.isAdmin && (
             <NavLink
-              to="/admin"
+              to="/admin/dashboard"
               end
               className={({ isActive }) =>
                 `py-1 px-3 rounded-full text-lg font-medium ${

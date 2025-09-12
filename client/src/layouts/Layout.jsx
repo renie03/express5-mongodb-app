@@ -2,6 +2,8 @@ import { Navigate, Outlet } from "react-router";
 import Navbar from "../components/site/Navbar";
 import Footer from "../components/site/Footer";
 import useAuthStore from "../stores/useAuthStore";
+import Sidebar from "../components/admin/Sidebar";
+import Topbar from "../components/admin/Topbar";
 
 export const Layout = () => {
   return (
@@ -29,4 +31,28 @@ export const AuthLayout = () => {
   if (!currentUser) return <Navigate to="/login" />;
 
   return <Outlet />;
+};
+
+export const AdminLayout = () => {
+  const { currentUser } = useAuthStore();
+
+  // unauthenticated users cannot access /admin/* navigate and to login page
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
+
+  // authenticated users without admin role cannot access /admin/* and navigate to home page
+  if (!currentUser.isAdmin) {
+    return <Navigate to="/" />;
+  }
+
+  return (
+    <div className="flex">
+      <Sidebar />
+      <div className="flex-1 p-5">
+        <Topbar />
+        <Outlet />
+      </div>
+    </div>
+  );
 };
