@@ -27,12 +27,12 @@ const AdminUsersPage = () => {
         <AdminSearch placeholder="Search for a user..." />
         <FormModal table="user" type="create" page={page} search={search} />
       </div>
-      {isPending ? (
-        <div className="spinner" />
-      ) : error ? (
-        "Something went wrong"
-      ) : (
-        <>
+      <div className="min-h-[675px]">
+        {isPending ? (
+          <div className="spinner" />
+        ) : error ? (
+          "Something went wrong"
+        ) : (
           <table className="w-full border-separate border-spacing-3">
             <thead>
               <tr className="text-left">
@@ -51,7 +51,7 @@ const AdminUsersPage = () => {
                     <div className="flex items-center gap-2">
                       <img
                         src={user.img || "/noavatar.png"}
-                        alt=""
+                        alt={user.name}
                         className="h-10 w-10 object-cover rounded-full"
                       />
                       {user.name}
@@ -87,9 +87,12 @@ const AdminUsersPage = () => {
               ))}
             </tbody>
           </table>
-          <AdminPagination totalData={data.totalUsers} />
-        </>
-      )}
+        )}
+      </div>
+      <AdminPagination
+        totalData={data?.totalUsers || 0}
+        isLoading={isPending}
+      />
     </div>
   );
 };

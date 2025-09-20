@@ -27,12 +27,12 @@ const AdminPostsPage = () => {
         <AdminSearch placeholder="Search for a post..." />
         <FormModal table="post" type="create" page={page} search={search} />
       </div>
-      {isPending ? (
-        <div className="spinner" />
-      ) : error ? (
-        "Something went wrong"
-      ) : (
-        <>
+      <div className="min-h-[675px]">
+        {isPending ? (
+          <div className="spinner" />
+        ) : error ? (
+          "Something went wrong"
+        ) : (
           <table className="w-full border-separate border-spacing-3">
             <thead>
               <tr className="text-left">
@@ -51,7 +51,7 @@ const AdminPostsPage = () => {
                     <div className="flex items-center gap-2">
                       <img
                         src={post.img || "/noproduct.jpg"}
-                        alt=""
+                        alt={post.title}
                         className="h-10 w-10 object-cover rounded-full"
                       />
                       {post.title}
@@ -87,9 +87,12 @@ const AdminPostsPage = () => {
               ))}
             </tbody>
           </table>
-          <AdminPagination totalData={data.totalPosts} />
-        </>
-      )}
+        )}
+      </div>
+      <AdminPagination
+        totalData={data?.totalPosts || 0}
+        isLoading={isPending}
+      />
     </div>
   );
 };

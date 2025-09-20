@@ -1,26 +1,30 @@
 import Post from "../models/post.model.js";
 
-export const getPaginatedPosts = async (req, res) => {
-  const page = Number(req.query.page) || 1;
-  const search = req.query.search;
-
-  const ITEM_PER_PAGE = 12;
+export const getPosts = async (req, res) => {
+  const category = req.query.category;
 
   try {
-    const query = {};
+    let posts;
 
-    if (search) {
-      query.title = { $regex: search, $options: "i" };
+    if (category) {
+      posts = await Post.find({ category }).sort({ createdAt: -1 }).limit(12);
+    } else {
+      posts = await Post.find().sort({ createdAt: -1 }).limit(12);
     }
 
-    const posts = await Post.find(query)
-      .sort({ createdAt: -1 })
-      .limit(ITEM_PER_PAGE)
-      .skip(ITEM_PER_PAGE * (page - 1));
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
-    const totalPosts = await Post.countDocuments(query);
-
-    return res.status(200).json({ posts, totalPosts });
+export const getPost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).populate(
+      "user",
+      "name image"
+    );
+    res.status(200).json(post);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -103,6 +107,84 @@ export const deletePost = async (req, res) => {
     }
 
     res.status(200).json({ message: "Post has been deleted" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getFeaturedPosts = async (req, res) => {
+  try {
+    const posts = await Post.find({ isFeatured: true })
+      .sort({ createdAt: -1 })
+      .limit(3);
+
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getPaginatedPosts = async (req, res) => {
+  const page = Number(req.query.page) || 1;
+  const searchQuery = req.query.search || req.query.q;
+  const category = req.query.category;
+  const sort = req.query.sort;
+
+  const ITEM_PER_PAGE = 12;
+
+  try {
+    const query = {};
+
+    if (searchQuery) {
+      query.title = { $regex: searchQuery, $options: "i" };
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    const sortOption =
+      sort === "popular"
+        ? { visit: -1 }
+        : sort === "oldest"
+        ? { createdAt: 1 }
+        : { createdAt: -1 };
+
+    const posts = await Post.find(query)
+      .sort(sortOption)
+      .limit(ITEM_PER_PAGE)
+      .skip(ITEM_PER_PAGE * (page - 1));
+
+    const totalPosts = await Post.countDocuments(query);
+
+    return res.status(200).json({ posts, totalPosts });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const incrementVisit = async (req, res) => {
+  try {
+    await Post.findByIdAndUpdate(req.params.id, {
+      $inc: { visit: 1 },
+    });
+
+    return res.status(200).json({ message: "View incremented" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getRelatedPosts = async (req, res) => {
+  const category = req.query.category;
+  const postId = req.query.postId;
+
+  try {
+    const posts = await Post.find({ category, _id: { $ne: postId } })
+      .sort({ createdAt: -1 })
+      .limit(4);
+
+    res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

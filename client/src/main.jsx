@@ -20,6 +20,8 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import AdminPostsPage from "./pages/AdminPostsPage";
 import AdminUsersPage from "./pages/AdminUsersPage";
 import PostsPage from "./pages/PostsPage";
+import SearchPage from "./pages/SearchPage";
+import SinglePostPage from "./pages/SinglePostPage";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +34,8 @@ createRoot(document.getElementById("root")).render(
             <Route element={<Layout />}>
               <Route index element={<HomePage />} />
               <Route path="posts" element={<PostsPage />} />
+              <Route path="posts/:id" element={<SinglePostPage />} />
+              <Route path="search" element={<SearchPage />} />
 
               {/* unauthenticated users only */}
               <Route element={<PublicLayout />}>
