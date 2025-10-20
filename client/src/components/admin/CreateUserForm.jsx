@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
@@ -9,11 +9,6 @@ import uwConfig from "../../utils/cloudinaryConfig";
 const CreateUserForm = ({ setOpen, page, search }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [file, setFile] = useState("");
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
 
   const queryClient = useQueryClient();
 
@@ -54,7 +49,7 @@ const CreateUserForm = ({ setOpen, page, search }) => {
         name="username"
         placeholder="username"
         required
-        ref={inputRef}
+        autoFocus
       />
       <input
         className="border border-gray-300 rounded-md p-3 focus:ring-black focus:ring-1"

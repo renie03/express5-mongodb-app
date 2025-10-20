@@ -1,4 +1,5 @@
 import Post from "../models/post.model.js";
+import Comment from "../models/comment.model.js";
 
 export const getPosts = async (req, res) => {
   const category = req.query.category;
@@ -105,6 +106,9 @@ export const deletePost = async (req, res) => {
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
+
+    // Delete all comments linked to this post
+    await Comment.deleteMany({ post: req.params.id });
 
     res.status(200).json({ message: "Post has been deleted" });
   } catch (error) {

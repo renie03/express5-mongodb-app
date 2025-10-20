@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import ThemeProvider from "./providers/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
@@ -22,6 +21,7 @@ import AdminUsersPage from "./pages/AdminUsersPage";
 import PostsPage from "./pages/PostsPage";
 import SearchPage from "./pages/SearchPage";
 import SinglePostPage from "./pages/SinglePostPage";
+import TestPage from "./pages/TestPage";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +36,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="posts" element={<PostsPage />} />
               <Route path="posts/:id" element={<SinglePostPage />} />
               <Route path="search" element={<SearchPage />} />
+              <Route path="test" element={<TestPage />} />
 
               {/* unauthenticated users only */}
               <Route element={<PublicLayout />}>

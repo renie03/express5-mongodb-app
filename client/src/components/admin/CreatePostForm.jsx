@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
 import { toast } from "react-toastify";
@@ -7,11 +7,6 @@ import uwConfig from "../../utils/cloudinaryConfig";
 
 const CreatePostForm = ({ setOpen, page, search }) => {
   const [file, setFile] = useState("");
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
 
   const queryClient = useQueryClient();
 
@@ -50,7 +45,7 @@ const CreatePostForm = ({ setOpen, page, search }) => {
         name="title"
         placeholder="title"
         required
-        ref={inputRef}
+        autoFocus
       />
       <input
         className="border border-gray-300 rounded-md p-3 focus:ring-black focus:ring-1"

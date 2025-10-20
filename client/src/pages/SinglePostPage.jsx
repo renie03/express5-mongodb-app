@@ -4,6 +4,7 @@ import { format } from "timeago.js";
 import apiRequest from "../utils/apiRequest";
 import { useEffect } from "react";
 import RelatedPosts from "../components/site/RelatedPosts";
+import Comments from "../components/site/Comments";
 
 const SinglePostPage = () => {
   const { id } = useParams();
@@ -27,12 +28,12 @@ const SinglePostPage = () => {
 
   return (
     <div>
-      <div className="flex gap-5 h-[530px]">
+      <div className="flex gap-5 min-h-[530px]">
         <div className="w-1/2 relative">
           <img
             src={data.img || "/noproduct.jpg"}
-            alt=""
-            className="w-full h-full rounded-xl"
+            alt={data.title}
+            className="absolute inset-0 w-full h-full rounded-xl"
           />
         </div>
         <div className="w-1/2 flex flex-col justify-between pl-5">
@@ -49,7 +50,7 @@ const SinglePostPage = () => {
             <div className="flex items-center gap-2">
               <img
                 src={data.user?.img || "/noavatar.png"}
-                alt=""
+                alt={data.user?.username || "userImage"}
                 className="h-10 w-10 rounded-full object-cover"
               />
               {data.user?.username}
@@ -59,6 +60,8 @@ const SinglePostPage = () => {
       </div>
       <hr className="border-hrColor my-5" />
       <RelatedPosts category={data.category} postId={id} />
+      <hr className="border-hrColor my-5" />
+      <Comments postId={id} />
     </div>
   );
 };

@@ -12,15 +12,17 @@ const RelatedPosts = ({ category, postId }) => {
   });
 
   return (
-    <div className="min-h-[245px]">
+    <div>
       <h1 className="text-xl font-semibold mb-2">Related Post</h1>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 min-h-[235px]">
         {isPending ? (
           <div className="spinner" />
         ) : error ? (
           "Something went wrong"
         ) : data.length === 0 ? (
-          <h1 className="text-sm text-gray-500">No related posts found.</h1>
+          <div className="flex items-center justify-center col-span-full text-textSoft font-semibold">
+            No related posts found.
+          </div>
         ) : (
           data.map((post) => <PostItem key={post._id} post={post} />)
         )}

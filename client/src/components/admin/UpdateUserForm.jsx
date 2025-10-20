@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import apiRequest from "../../utils/apiRequest";
@@ -9,11 +9,6 @@ import uwConfig from "../../utils/cloudinaryConfig";
 const UpdateUserForm = ({ setOpen, user, page, search }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [file, setFile] = useState(user.img || "");
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
 
   const queryClient = useQueryClient();
 
@@ -57,7 +52,7 @@ const UpdateUserForm = ({ setOpen, user, page, search }) => {
           id="username"
           defaultValue={user.username}
           required
-          ref={inputRef}
+          autoFocus
         />
       </div>
       <div className="flex flex-col gap-1">

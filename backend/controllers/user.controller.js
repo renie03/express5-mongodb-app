@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import Post from "../models/post.model.js";
+import Comment from "../models/comment.model.js";
 import bcrypt from "bcryptjs";
 
 export const getPaginatedUsers = async (req, res) => {
@@ -194,8 +195,9 @@ export const deleteUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Delete all posts linked to this user
+    // Delete all posts and comments linked to this user
     await Post.deleteMany({ user: req.params.id });
+    await Comment.deleteMany({ user: req.params.id });
 
     res.status(200).json({ message: "User has been deleted" });
   } catch (error) {

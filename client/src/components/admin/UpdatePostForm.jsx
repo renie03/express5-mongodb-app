@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRequest from "../../utils/apiRequest";
 import { toast } from "react-toastify";
@@ -7,11 +7,6 @@ import uwConfig from "../../utils/cloudinaryConfig";
 
 const UpdatePostForm = ({ setOpen, post, page, search }) => {
   const [file, setFile] = useState(post.img || "");
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
 
   const queryClient = useQueryClient();
 
@@ -54,7 +49,7 @@ const UpdatePostForm = ({ setOpen, post, page, search }) => {
           id="title"
           defaultValue={post.title}
           required
-          ref={inputRef}
+          autoFocus
         />
       </div>
       <div className="flex flex-col gap-1">
