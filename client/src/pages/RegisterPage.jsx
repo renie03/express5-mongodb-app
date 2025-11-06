@@ -6,10 +6,11 @@ import apiRequest from "../utils/apiRequest";
 import CloudinaryUploadWidget from "../components/shared/CloudinaryUploadWidget";
 import uwConfig from "../utils/cloudinaryConfig";
 import useAuthStore from "../stores/useAuthStore";
+import SmartImage from "../components/shared/SmartImage";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const { setCurrentUser } = useAuthStore();
@@ -89,12 +90,21 @@ const RegisterPage = () => {
             </span>
           </div>
           <div className="flex flex-col">
+            {/* PREVIEW IMAGE */}
             {avatar && (
-              <img
-                src={avatar}
-                alt=""
-                className="h-12 w-12 object-cover rounded-full mb-1 self-center"
-              />
+              <div className="self-center relative">
+                <SmartImage
+                  src={avatar}
+                  alt="profile picture preview"
+                  className="h-12 w-12 object-cover rounded-full mb-1 self-center"
+                />
+                <div
+                  className="absolute -top-1 right-0 cursor-pointer bg-bgSoft dark:text-white h-4 w-4 rounded-full flex items-center justify-center text-xs"
+                  onClick={() => setAvatar(null)}
+                >
+                  X
+                </div>
+              </div>
             )}
             <CloudinaryUploadWidget uwConfig={uwConfig} setState={setAvatar} />
           </div>

@@ -5,12 +5,13 @@ import uwConfig from "../utils/cloudinaryConfig";
 import apiRequest from "../utils/apiRequest";
 import { toast } from "react-toastify";
 import useAuthStore from "../stores/useAuthStore";
+import SmartImage from "../components/shared/SmartImage";
 
 const UpdateUserPage = () => {
   const { currentUser, updateCurrentUser } = useAuthStore();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [file, setFile] = useState(currentUser.img || "");
+  const [file, setFile] = useState(currentUser?.img || null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -104,12 +105,21 @@ const UpdateUserPage = () => {
             </div>
           </div>
           <div className="flex flex-col">
+            {/* PREVIEW IMAGE */}
             {file && (
-              <img
-                src={file}
-                alt=""
-                className="h-12 w-12 object-cover rounded-full mb-1 self-center"
-              />
+              <div className="self-center relative">
+                <SmartImage
+                  src={file}
+                  alt="profile picture preview"
+                  className="h-12 w-12 object-cover rounded-full mb-1 self-center"
+                />
+                <div
+                  className="absolute -top-1 right-0 cursor-pointer bg-bgSoft dark:text-white h-4 w-4 rounded-full flex items-center justify-center text-xs"
+                  onClick={() => setFile(null)}
+                >
+                  X
+                </div>
+              </div>
             )}
             <CloudinaryUploadWidget uwConfig={uwConfig} setState={setFile} />
           </div>

@@ -66,29 +66,25 @@ export const createPost = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-  const { title, desc, img, category, isFeatured } = req.body;
-
-  if (!title || !desc || !category || !isFeatured) {
-    return res.status(400).json({
-      message: "title, desc, category and isFeatured are required.",
-    });
-  }
-
   try {
     if (!req.isAdmin) {
       return res.status(403).json({ message: "Admin only" });
     }
+
+    const { title, desc, img, category, isFeatured } = req.body;
 
     const existingTitle = await Post.findOne({ title });
     if (existingTitle && existingTitle._id.toString() !== req.params.id) {
       return res.status(409).json({ message: "Title is already taken" });
     }
 
-    await Post.findByIdAndUpdate(
-      req.params.id,
-      { title, desc, img, category, isFeatured: isFeatured === "true" },
-      { new: true }
-    );
+    await Post.findByIdAndUpdate(req.params.id, {
+      title,
+      desc,
+      img,
+      category,
+      isFeatured: isFeatured === "true",
+    });
 
     res.status(200).json({ message: "Post has been updated" });
   } catch (error) {

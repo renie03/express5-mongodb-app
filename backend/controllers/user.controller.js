@@ -80,20 +80,14 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const { username, email, name, password, img } = req.body;
-
-  if (!username || !email || !name) {
-    return res
-      .status(400)
-      .json({ message: "username, email and name are required." });
-  }
-
   try {
     if (req.params.id !== req.userId) {
       return res
         .status(403)
         .json({ message: "You can update only your account" });
     }
+
+    const { username, email, name, password, img } = req.body;
 
     const existingUsername = await User.findOne({ username });
     if (existingUsername && existingUsername._id.toString() !== req.userId) {
@@ -121,6 +115,7 @@ export const updateUser = async (req, res) => {
     if (password && password.trim() !== "") {
       updateFields.password = await bcrypt.hash(password, 10);
     }
+
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
       updateFields,

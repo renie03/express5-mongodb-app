@@ -101,7 +101,7 @@ const Sidebar = () => {
           <img
             className="h-12 w-12 rounded-full object-cover"
             src={currentUser.img || "/noavatar.png"}
-            alt=""
+            alt={currentUser.name}
           />
           <div className="hidden md:flex flex-col">
             <span className="font-medium">{currentUser.name}</span>

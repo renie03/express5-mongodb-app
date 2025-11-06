@@ -1,10 +1,13 @@
+import SmartImage from "../components/shared/SmartImage";
+
 const TestPage = () => {
   return (
-    <div className="flex flex-col items-center my-5 gap-5">
-      <p>Loading images...</p>
-      <img src="/forest.avif" alt="" className="h-[800px] w-[600px]" />
-      <p>Below the image</p>
-      <img src="/forest.avif" alt="" className="h-[800px] w-[600px]" />
+    <div className="flex items-center justify-center h-screen">
+      <SmartImage
+        src="/forest.avif"
+        alt="forest"
+        className="h-[500px] w-[500px] rounded-xl"
+      />
     </div>
   );
 };

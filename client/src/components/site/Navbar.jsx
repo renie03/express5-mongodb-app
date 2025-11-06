@@ -14,9 +14,6 @@ const Navbar = () => {
       <Link to="/" className="hidden lg:inline text-lg font-medium">
         Blog App
       </Link>
-      <Link to="/test" className="hidden lg:inline text-lg font-medium">
-        Test
-      </Link>
       <Search />
       <div className="flex items-center gap-2">
         <div className="hidden md:flex items-center gap-2">
