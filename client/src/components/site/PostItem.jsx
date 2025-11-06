@@ -1,6 +1,5 @@
 import { Link } from "react-router";
 import { format } from "timeago.js";
-import SmartImage from "../shared/SmartImage";
 
 const PostItem = ({ post }) => {
   return (
@@ -10,7 +9,7 @@ const PostItem = ({ post }) => {
     >
       <Link to={`/posts/${post._id}`}>
         <div className="aspect-[2/1] rounded-t-xl overflow-hidden">
-          <SmartImage
+          <img
             src={post.img || "/noproduct.jpg"}
             alt={post.title}
             className="h-full w-full hover:scale-105 transition-all duration-300"
