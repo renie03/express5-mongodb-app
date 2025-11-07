@@ -5,7 +5,6 @@ import uwConfig from "../utils/cloudinaryConfig";
 import apiRequest from "../utils/apiRequest";
 import { toast } from "react-toastify";
 import useAuthStore from "../stores/useAuthStore";
-import SmartImage from "../components/shared/SmartImage";
 
 const UpdateUserPage = () => {
   const { currentUser, updateCurrentUser } = useAuthStore();
@@ -108,7 +107,7 @@ const UpdateUserPage = () => {
             {/* PREVIEW IMAGE */}
             {file && (
               <div className="self-center relative">
-                <SmartImage
+                <img
                   src={file}
                   alt="profile picture preview"
                   className="h-12 w-12 object-cover rounded-full mb-1 self-center"
@@ -124,7 +123,7 @@ const UpdateUserPage = () => {
             <CloudinaryUploadWidget uwConfig={uwConfig} setState={setFile} />
           </div>
           <button
-            className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+            className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer hover:bg-blue-600 dark:hover:bg-blue-800 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? <div className="spinner" /> : "Update"}

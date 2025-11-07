@@ -16,6 +16,7 @@ const Navbar = () => {
       </Link>
       <Search />
       <div className="flex items-center gap-2">
+        <ThemeToggle />
         <div className="hidden md:flex items-center gap-2">
           {links.map((link) => (
             <NavLink
@@ -25,7 +26,7 @@ const Navbar = () => {
                 `py-1 px-3 rounded-full text-lg font-medium ${
                   isActive
                     ? "bg-blue-500 dark:bg-white text-white dark:text-black"
-                    : ""
+                    : "hover:bg-blue-500 dark:hover:bg-white hover:text-white dark:hover:text-black"
                 }`
               }
             >
@@ -40,7 +41,7 @@ const Navbar = () => {
                 `py-1 px-3 rounded-full text-lg font-medium ${
                   isActive
                     ? "bg-blue-500 dark:bg-white text-white dark:text-black"
-                    : ""
+                    : "hover:bg-blue-500 dark:hover:bg-white hover:text-white dark:hover:text-black"
                 }`
               }
             >
@@ -48,16 +49,22 @@ const Navbar = () => {
             </NavLink>
           )}
         </div>
-        <ThemeToggle />
         {currentUser ? (
           <UserMenu />
         ) : (
-          <Link
+          <NavLink
             to="/login"
-            className="hidden md:inline py-1 px-2 rounded-md font-medium bg-blue-500 dark:bg-white text-white dark:text-black"
+            end
+            className={({ isActive }) =>
+              `hidden md:block py-1 px-3 rounded-full text-lg font-medium ${
+                isActive
+                  ? "bg-blue-500 dark:bg-white text-white dark:text-black"
+                  : "hover:bg-blue-500 dark:hover:bg-white hover:text-white dark:hover:text-black"
+              }`
+            }
           >
             Login
-          </Link>
+          </NavLink>
         )}
         {/* MOBILE MENU */}
         <MobileMenu currentUser={currentUser} />

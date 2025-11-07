@@ -67,7 +67,7 @@ const LoginPage = () => {
             </span>
           </div>
           <button
-            className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+            className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer hover:bg-blue-600 dark:hover:bg-blue-800 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? <div className="spinner" /> : "Login"}

@@ -70,7 +70,7 @@ const MobileMenu = ({ currentUser }) => {
         ))}
         {currentUser?.isAdmin && (
           <NavLink
-            to="/admin"
+            to="/admin/dashboard"
             end
             onClick={() => setOpen(false)}
             className={({ isActive }) =>
@@ -89,7 +89,7 @@ const MobileMenu = ({ currentUser }) => {
             to="/login"
             onClick={() => setOpen(false)}
             className={({ isActive }) =>
-              `w-full p-3 text-center font-medium text-lg rounded-md hover:text-white dark:hover:bg-white dark:hover:text-black ${
+              `w-full p-3 text-center font-medium text-lg rounded-md hover:bg-blue-500 hover:text-white dark:hover:bg-white dark:hover:text-black ${
                 isActive
                   ? "bg-blue-500 dark:bg-white text-white dark:text-black"
                   : ""

@@ -48,7 +48,7 @@ const UserMenu = () => {
         <img
           className="h-8 w-8 object-cover rounded-full"
           src={currentUser.img || "/noavatar.png"}
-          alt=""
+          alt={currentUser.name}
         />
       </div>
       {open && (

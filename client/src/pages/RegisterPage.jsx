@@ -6,7 +6,6 @@ import apiRequest from "../utils/apiRequest";
 import CloudinaryUploadWidget from "../components/shared/CloudinaryUploadWidget";
 import uwConfig from "../utils/cloudinaryConfig";
 import useAuthStore from "../stores/useAuthStore";
-import SmartImage from "../components/shared/SmartImage";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -93,7 +92,7 @@ const RegisterPage = () => {
             {/* PREVIEW IMAGE */}
             {avatar && (
               <div className="self-center relative">
-                <SmartImage
+                <img
                   src={avatar}
                   alt="profile picture preview"
                   className="h-12 w-12 object-cover rounded-full mb-1 self-center"
@@ -109,7 +108,7 @@ const RegisterPage = () => {
             <CloudinaryUploadWidget uwConfig={uwConfig} setState={setAvatar} />
           </div>
           <button
-            className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+            className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer hover:bg-blue-600 dark:hover:bg-blue-800 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? <div className="spinner" /> : "Register"}

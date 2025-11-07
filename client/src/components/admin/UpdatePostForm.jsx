@@ -6,7 +6,7 @@ import CloudinaryUploadWidget from "../shared/CloudinaryUploadWidget";
 import uwConfig from "../../utils/cloudinaryConfig";
 
 const UpdatePostForm = ({ setOpen, post, page, search }) => {
-  const [file, setFile] = useState(post.img || "");
+  const [file, setFile] = useState(post.img || null);
 
   const queryClient = useQueryClient();
 
@@ -91,12 +91,21 @@ const UpdatePostForm = ({ setOpen, post, page, search }) => {
         </select>
       </div>
       <div className="flex flex-col">
+        {/* PREVIEW IMAGE */}
         {file && (
-          <img
-            src={file}
-            alt=""
-            className="h-12 w-12 object-cover rounded-full mb-1 self-center"
-          />
+          <div className="self-center relative">
+            <img
+              src={file}
+              alt="profile picture preview"
+              className="h-12 w-12 object-cover rounded-full mb-1 self-center"
+            />
+            <div
+              className="absolute -top-1 right-0 cursor-pointer bg-bgSoft dark:text-white h-4 w-4 rounded-full flex items-center justify-center text-xs"
+              onClick={() => setFile(null)}
+            >
+              X
+            </div>
+          </div>
         )}
         <CloudinaryUploadWidget
           uwConfig={uwConfig}
@@ -105,7 +114,7 @@ const UpdatePostForm = ({ setOpen, post, page, search }) => {
         />
       </div>
       <button
-        className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+        className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer hover:bg-blue-600 dark:hover:bg-blue-800 disabled:cursor-not-allowed"
         disabled={mutation.isPending}
       >
         {mutation.isPending ? <div className="spinner" /> : "Update"}
